@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Filelist Night Archive
 @namespace      https://github.com/5H0HAN/filelist-stylus-theme
-@version        0.1.0
+@version        0.2.0
 @description    A calm dark theme for browsing and reading Filelist.
 @author         5H0HAN
 @license        MIT
@@ -165,7 +165,14 @@
 
   input[type="checkbox"],
   input[type="radio"] {
+    inline-size: 1rem;
+    block-size: 1rem;
     accent-color: var(--fl-amber);
+  }
+
+  input,
+  textarea {
+    caret-color: var(--fl-amber-bright);
   }
 
   button,
@@ -183,24 +190,11 @@
     cursor: pointer;
   }
 
-  form[action*="browse.php"] input[type="submit"],
-  form:has(input[placeholder*="IMDb"]) input[type="submit"] {
-    border: 1px solid #d69e4e !important;
-    background: var(--fl-amber) !important;
-    color: #241b10 !important;
-    font-weight: 650;
-  }
-
   button:hover,
   input[type="button"]:hover,
   input[type="submit"]:hover,
   input[type="reset"]:hover {
     background: var(--fl-hover) !important;
-  }
-
-  form[action*="browse.php"] input[type="submit"]:hover,
-  form:has(input[placeholder*="IMDb"]) input[type="submit"]:hover {
-    background: var(--fl-amber-bright) !important;
   }
 
   button:disabled,
@@ -240,8 +234,13 @@
     background: var(--fl-surface) !important;
   }
 
-  form[action*="browse.php"] input[type="text"],
-  form:has(input[placeholder*="IMDb"]) input[type="text"] {
+  form[action*="browse.php"]:focus-within,
+  form:has(input[placeholder*="IMDb"]):focus-within {
+    border-color: var(--fl-amber);
+  }
+
+  form[action*="browse.php"] input:is([type="text"], [type="search"]),
+  form:has(input[placeholder*="IMDb"]) input:is([type="text"], [type="search"]) {
     flex: 1 1 22rem;
     min-width: min(100%, 15rem);
   }
@@ -257,19 +256,26 @@
     color: var(--fl-muted);
   }
 
-  form[action*="browse.php"] button,
-  form[action*="browse.php"] input[type="submit"],
-  form:has(input[placeholder*="IMDb"]) button,
-  form:has(input[placeholder*="IMDb"]) input[type="submit"] {
+  form[action*="browse.php"] label:has(input[type="checkbox"], input[type="radio"]),
+  form:has(input[placeholder*="IMDb"]) label:has(input[type="checkbox"], input[type="radio"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: var(--fl-control-height);
+    padding-inline: 0.25rem;
+    cursor: pointer;
+  }
+
+  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]),
+  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]) {
     border-color: #d69e4e !important;
     background: var(--fl-amber) !important;
     color: #241b10 !important;
+    font-weight: 650;
   }
 
-  form[action*="browse.php"] button:hover,
-  form[action*="browse.php"] input[type="submit"]:hover,
-  form:has(input[placeholder*="IMDb"]) button:hover,
-  form:has(input[placeholder*="IMDb"]) input[type="submit"]:hover {
+  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]):hover,
+  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]):hover {
     background: var(--fl-amber-bright) !important;
   }
 
@@ -299,13 +305,18 @@
     vertical-align: middle;
   }
 
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td > a[href*="details.php"],
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td > a[href*="details.php"] {
+    font-weight: 650;
+  }
+
   #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:nth-child(even) > td,
   .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:nth-child(even) > td {
     background: rgb(255 255 255 / 2%) !important;
   }
 
-  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:hover > td,
-  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:hover > td {
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:is(:hover, :focus-within) > td,
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:is(:hover, :focus-within) > td {
     background: var(--fl-hover) !important;
   }
 
@@ -337,11 +348,39 @@
     color: #fff7e8;
   }
 
+  * {
+    scrollbar-color: var(--fl-border) var(--fl-canvas);
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--fl-canvas);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid var(--fl-canvas);
+    border-radius: 999px;
+    background: var(--fl-border);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--fl-muted);
+  }
+
   :focus-visible {
     scroll-margin-block: 1rem;
   }
 
   @media (max-width: 760px) {
+    :root {
+      --fl-control-height: 2.75rem;
+    }
+
     .wrapper,
     #wrapper {
       width: 100% !important;
@@ -354,9 +393,15 @@
       padding: 0.75rem;
     }
 
-    form[action*="browse.php"] input[type="text"],
-    form:has(input[placeholder*="IMDb"]) input[type="text"] {
+    form[action*="browse.php"] input:is([type="text"], [type="search"]),
+    form:has(input[placeholder*="IMDb"]) input:is([type="text"], [type="search"]) {
       flex-basis: 100%;
+      min-width: 0;
+    }
+
+    form[action*="browse.php"] select,
+    form:has(input[placeholder*="IMDb"]) select {
+      flex: 1 1 9.5rem;
       min-width: 0;
     }
 
@@ -365,6 +410,14 @@
       display: block;
       max-width: 100%;
       overflow-x: auto;
+      overscroll-behavior-inline: contain;
+    }
+
+    #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) th,
+    #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td,
+    .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) th,
+    .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td {
+      white-space: nowrap;
     }
   }
 

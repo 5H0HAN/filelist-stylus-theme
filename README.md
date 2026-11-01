@@ -16,14 +16,18 @@ keeping Filelist's own actions and links intact.
 - CSS only: no JavaScript, analytics, external fonts, remote images, or network
   requests.
 - Applies only to pages under `https://filelist.io/`.
-- Restyles Filelist's native search, category, sort, and forum controls; it does
-  not submit searches or take actions for you.
+- Improves Filelist's existing browse form and result table while preserving
+  the site's native search and filter submission.
 - Does not bypass authentication, site rules, or access controls.
 
-Search-engine and public metadata links, translation, and expanded forum tools
-are future ideas. CSS cannot implement those functions; any later companion
-script or extension must be separately opt-in, user-triggered, and limited to
-public sources and the permissions it needs.
+## Future integrations
+
+External search, public metadata, translation, and richer forum views do not
+belong in this UserCSS. Any companion add-on must be separate and opt in. It
+must act only after a user gesture, disclose the destination before sending a
+title or selected text off-site, use documented public sources, and request
+only the permissions it needs. It must not read cookies or credentials,
+automatically fetch member-only content, or submit Filelist actions.
 
 ## Development
 

@@ -82,9 +82,10 @@ tabular numerals for easier comparison.
 ## Layout
 
 Keep Filelist's page structure and navigation. The browse form wraps naturally,
-with a flexible query field and controls that remain usable on narrow screens.
-Keep result tables inside the main content column and allow horizontal reading
-on small screens.
+with a flexible text or search field and filters that remain usable on narrow
+screens. On touch-sized screens, controls reach 44px high and compact filters
+share a row when space allows. Keep result tables inside the main content column
+and allow horizontal scrolling on small screens.
 
 ## Elevation & Depth
 
@@ -95,8 +96,8 @@ onto bordered surfaces.
 ## Shapes
 
 Use 7px corners for controls and 9px for larger panels. Keep controls at least
-2.5rem tall and use the shared half-rem, three-quarter-rem, and one-rem spacing
-steps.
+2.5rem tall, increasing them to 2.75rem on narrow screens, and use the shared
+half-rem, three-quarter-rem, and one-rem spacing steps.
 
 ## Components
 
@@ -118,8 +119,10 @@ submission or search behavior.
 
 ### Results table
 
-Muted row rules, restrained alternating rows, and a subtle hover surface make
-long lists easier to follow without turning every row into a card.
+Muted row rules, restrained alternating rows, and a subtle hover or
+keyboard-focus surface make long lists easier to follow without turning every
+row into a card. On narrow screens, keep columns readable and let the result
+table scroll horizontally.
 
 ## Do's and Don'ts
 
