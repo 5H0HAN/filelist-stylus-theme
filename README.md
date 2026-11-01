@@ -23,11 +23,12 @@ keeping Filelist's own actions and links intact.
 ## Future integrations
 
 External search, public metadata, translation, and richer forum views do not
-belong in this UserCSS. Any companion add-on must be separate and opt in. It
-must act only after a user gesture, disclose the destination before sending a
-title or selected text off-site, use documented public sources, and request
-only the permissions it needs. It must not read cookies or credentials,
-automatically fetch member-only content, or submit Filelist actions.
+belong in this UserCSS. Any companion add-on must be separate and opt in.
+External search and metadata must use documented public sources. Translation
+and forum views may act only on content already visible in Filelist after a
+user action; disclose the provider before sending selected text off-site. Do
+not read credentials or cookies, query private endpoints, crawl pages in the
+background, or submit Filelist actions. See [SECURITY.md](SECURITY.md).
 
 ## Development
 

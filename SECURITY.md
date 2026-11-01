@@ -10,9 +10,12 @@ repository is published, or contact the repository owner directly.
 ## Future integrations
 
 Keep any search, metadata, or translation companion separate from this
-UserCSS. Require a direct user action for every external lookup or translation,
-show which provider receives the query or selected text, and use public,
-documented endpoints. Do not read or store cookies, credentials, or session
-tokens; scrape authenticated pages; or submit site forms. A forum view may
-format content already shown by Filelist, but it must not fetch additional
-member-only data on its own.
+UserCSS. Require a direct user action for every external lookup or translation.
+Use documented public endpoints for search and metadata, and show the provider
+and payload before sending a title or selected text off-site.
+
+A translation or forum view may use only content Filelist has already rendered
+in the user's authorized page. It must not query private endpoints, crawl other
+pages, extract hidden fields, or replay the user's authenticated requests. Do
+not read or store cookies, credentials, or session tokens, and do not submit
+Filelist forms or automate downloads.

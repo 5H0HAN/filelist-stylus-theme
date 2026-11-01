@@ -28,7 +28,7 @@ The theme runs in a user's browser through the Stylus extension on Filelist page
 
 ## Capabilities and Constraints
 
-The initial theme may restyle existing site controls and content. CSS cannot create working external search, metadata lookup, translation, or new forum controls. Keep the UserCSS visual-only. Any later companion feature must be separately installed, start from an explicit user action, disclose any off-site query or selected text, use documented public sources, and stay within each service's terms. Do not read credentials or session data, bypass authentication, submit tracker actions, or automatically fetch member-only content.
+The initial theme may restyle existing site controls and content. CSS cannot create working external search, metadata lookup, translation, or new forum controls. Keep the UserCSS visual-only. Any later companion feature must be separately installed and start from an explicit user action. Search and metadata use documented public sources; translation and forum views may use only content already rendered in the user's authorized page. Disclose any text sent off-site. Do not read credentials or session data, query private endpoints, bypass authentication, submit tracker actions, or crawl pages in the background.
 
 ## Product Principles
 
