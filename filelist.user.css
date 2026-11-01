@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Filelist Night Archive
 @namespace      https://github.com/5H0HAN/filelist-stylus-theme
-@version        0.2.0
+@version        0.3.0
 @description    A calm dark theme for browsing and reading Filelist.
 @author         5H0HAN
 @license        MIT
@@ -268,9 +268,9 @@
 
   form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled),
   form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled) {
-    border-color: #d69e4e !important;
+    border-color: var(--fl-amber) !important;
     background: var(--fl-amber) !important;
-    color: #241b10 !important;
+    color: var(--fl-canvas) !important;
     font-weight: 650;
   }
 
@@ -292,7 +292,6 @@
     padding: var(--fl-space-1) var(--fl-space-2);
     background: var(--fl-raised) !important;
     color: var(--fl-text) !important;
-    font-size: 0.82rem;
     font-weight: 650;
     text-align: start;
   }
@@ -332,7 +331,7 @@
 
   pre,
   code {
-    border-radius: 5px;
+    border-radius: var(--fl-radius-control);
     background: var(--fl-raised) !important;
     color: var(--fl-text) !important;
     font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -344,8 +343,8 @@
   }
 
   ::selection {
-    background: #725426;
-    color: #fff7e8;
+    background: var(--fl-amber);
+    color: var(--fl-canvas);
   }
 
   * {
@@ -409,6 +408,253 @@
       scroll-behavior: auto !important;
       transition-duration: 0.01ms !important;
       animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@-moz-document url-prefix("https://filelist.io/forums.php") {
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]),
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]),
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) {
+    box-sizing: border-box;
+    width: 100%;
+    border-collapse: collapse;
+    border-color: var(--fl-border) !important;
+    color: var(--fl-text) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]) th,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]) td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) th,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) th,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) td {
+    padding: 0.7rem 0.8rem;
+    border-color: var(--fl-border) !important;
+    color: inherit;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]) tr:has(> td[colspan]) > td {
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font-weight: 650;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]) tr:not(:has(> td[colspan])) > td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) tr:not(:has(> td[colspan])) > td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:not(:has(> td[colspan])) > td {
+    background: var(--fl-surface) !important;
+    border-bottom: 1px solid var(--fl-border) !important;
+    vertical-align: middle;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]) tr:not(:has(> td[colspan])):hover > td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) tr:not(:has(> td[colspan])):hover > td,
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:not(:has(> td[colspan])):hover > td {
+    background: var(--fl-hover) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:has(> td:nth-child(4)) > td:nth-child(2),
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:has(> td:nth-child(4)) > td:nth-child(3),
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) tr:has(> td:nth-child(3):last-child) > td:nth-child(2) {
+    color: var(--fl-muted) !important;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) tr:has(> td:nth-child(3):last-child) > td:last-child {
+    min-width: 15rem;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) :is(td, div):has(> a[href*="page="]) > a[href*="page="] {
+    display: inline-flex;
+    min-width: 2rem;
+    min-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0.12rem;
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--fl-border);
+    border-radius: var(--fl-radius-control);
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) :is(td, div):has(> a[href*="page="]) > a[href*="page="]:hover {
+    border-color: var(--fl-amber) !important;
+    background: var(--fl-hover) !important;
+    color: var(--fl-amber-bright) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) {
+    margin-block: 1rem;
+    border: 1px solid var(--fl-border) !important;
+    border-collapse: separate;
+    border-radius: var(--fl-radius-panel);
+    background: var(--fl-surface) !important;
+    overflow: hidden;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:first-child > td {
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font-weight: 600;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td {
+    padding: 0.8rem;
+    border-color: var(--fl-border) !important;
+    vertical-align: top;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:first-child {
+    width: 14rem;
+    border-inline-end: 1px solid var(--fl-border) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:first-child img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:first-child img:first-of-type {
+    max-height: 12rem;
+    object-fit: cover;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:nth-child(2) :is(img, video, iframe) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :is(#maincolumn, .maincolumn, #content):has(textarea) textarea {
+    display: block;
+    width: min(100%, 50rem);
+    min-height: 12rem;
+    margin: 0 auto 0.75rem;
+  }
+
+  @media (max-width: 760px) {
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]),
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]),
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:has(> td:nth-child(4)) > td:nth-child(2),
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewforum"]) tr:has(> td:nth-child(4)) > td:nth-child(3),
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]) tr:has(> td:nth-child(3):last-child) > td:nth-child(2) {
+      white-space: nowrap;
+    }
+
+    :is(#maincolumn, .maincolumn, #content) :is(td, div):has(> a[href*="page="]) > a[href*="page="] {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+    }
+
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:first-child {
+      width: 8rem;
+      min-width: 8rem;
+    }
+
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr:first-child > td[colspan]):has(> tbody > tr:nth-child(2) > td:first-child img) tr:nth-child(2) > td:first-child img:first-of-type {
+      max-height: 8rem;
+    }
+  }
+}
+
+@-moz-document url-prefix("https://filelist.io/details.php") {
+  :is(#maincolumn, .maincolumn, #content) {
+    color: var(--fl-text) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) :is(h1, h2, h3) {
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) h1 {
+    max-width: 100%;
+    line-height: 1.35;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) img,
+  :is(#maincolumn, .maincolumn, #content) video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) img {
+    border-radius: var(--fl-radius-control);
+  }
+
+  :is(#maincolumn, .maincolumn, #content) iframe {
+    display: block;
+    width: min(100%, 68rem);
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    margin: 1rem auto;
+    border: 1px solid var(--fl-border) !important;
+    border-radius: var(--fl-radius-panel);
+  }
+
+  :is(#maincolumn, .maincolumn, #content) > table {
+    box-sizing: border-box;
+    max-width: 100%;
+    border-color: var(--fl-border) !important;
+    background-color: var(--fl-surface) !important;
+    color: var(--fl-text) !important;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) {
+    width: 100%;
+    border-collapse: collapse;
+    border-color: var(--fl-border) !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) th {
+    padding: 0.65rem 0.75rem;
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    text-align: start;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) td {
+    padding: 0.65rem 0.75rem;
+    border-color: var(--fl-border) !important;
+    color: inherit;
+    vertical-align: middle;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:is(:hover, :focus-within) > td {
+    background: var(--fl-hover) !important;
+  }
+
+  @media (max-width: 760px) {
+    :is(#maincolumn, .maincolumn, #content) iframe {
+      width: 100%;
+      margin-block: 0.75rem;
+      border-radius: var(--fl-radius-control);
+    }
+
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) {
+      display: block;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+    }
+
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) th,
+    :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="details.php"]) td {
+      white-space: nowrap;
     }
   }
 }

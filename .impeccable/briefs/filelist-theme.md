@@ -2,7 +2,8 @@
 
 ## Scope
 
-Stylus UserCSS for the Filelist website. Mode: Operate.
+Stylus UserCSS plus an optional, narrowly scoped userscript for the Filelist
+website. Both render their controls inside Filelist. Mode: Operate.
 
 ## Audience and task
 
@@ -11,10 +12,11 @@ search, category, sort, and forum controls more comfortably.
 
 ## Constraints
 
-Preserve Filelist content, links, and existing behavior. Keep the first release
-CSS only, limited to `https://filelist.io/`, with no remote resources or
-tracking. External search, metadata, translation, and new forum tools are later
-ideas that need separate opt-in functionality.
+Preserve Filelist content, links, and existing behavior. Keep the UserCSS
+limited to `https://filelist.io/`, with no remote resources or tracking. Keep
+the optional userscript limited to the exact Filelist host, visible/user-entered
+text, and direct user actions. No background lookup, automatic translation,
+tracker search, or download action.
 
 ## Direction contract
 
@@ -33,9 +35,9 @@ refine their query with Filelist's own options, then scan result metadata.
 browse form a full-width, wrapped control row above the results; use calm table
 headers, readable row spacing, and visible keyboard focus.
 
-**FORM:** Code-led CSS UserCSS. No page script, remote lookup, or added site
-action in this release.
+**FORM:** Code-led UserCSS and one optional userscript. New actions stay inside
+Filelist, show their destination, send data only after a direct user action,
+and use fixed public metadata/translation providers.
 
-**FINISH:** unreviewed and undocumented is unfinished; this build ends with the
-finish review, the verdict, DESIGN.md, and every shipping raster carrying its
-provenance
+**FINISH:** Preserve keyboard access, narrow-screen layouts, and the native
+Filelist controls. Document the exact userscript permissions and text flows.
