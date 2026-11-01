@@ -1,8 +1,11 @@
 # Security
 
-This project is a CSS-only Stylus UserCSS. It contains no scripts, remote
-assets, analytics, or network requests. Do not add credentials, session data,
-or private tracker content to the repository.
+The Stylus UserCSS contains no scripts, remote assets, analytics, or network
+requests. The optional helper has a local script but no Filelist access,
+storage, analytics, or background requests. It sends a title only when the user
+submits the search form to a selected provider. Translation text is copied to
+the local clipboard; the user opens Google Translate and pastes it manually.
+Do not add credentials, session data, or private tracker content to the repo.
 
 For a security concern, open a private GitHub security advisory after this
 repository is published, or contact the repository owner directly.

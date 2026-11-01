@@ -11,24 +11,30 @@ keeping Filelist's own actions and links intact.
 3. Paste the contents of `filelist.user.css` and save.
 4. Confirm the style is scoped to `https://filelist.io/`.
 
+## Optional public search helper
+
+Download the repository and open [`companion/index.html`](companion/index.html)
+in a browser to search one provider at a time or copy visible text for
+translation. It does not read the Filelist page. A submitted title goes to the
+selected search provider; copied translation text stays local until you paste
+and submit it at Google Translate.
+
 ## Scope and privacy
 
-- CSS only: no JavaScript, analytics, external fonts, remote images, or network
-  requests.
-- Applies only to pages under `https://filelist.io/`.
-- Improves Filelist's existing browse form and result table while preserving
+- The Stylus UserCSS is CSS only: no JavaScript, analytics, external fonts,
+  remote images, or network requests.
+- The theme applies only to pages under `https://filelist.io/`.
+- It improves Filelist's existing browse form and result table while preserving
   the site's native search and filter submission.
 - Does not bypass authentication, site rules, or access controls.
 
 ## Future integrations
 
-External search, public metadata, translation, and richer forum views do not
-belong in this UserCSS. Any companion add-on must be separate and opt in.
-External search and metadata must use documented public sources. Translation
-and forum views may act only on content already visible in Filelist after a
-user action; disclose the provider before sending selected text off-site. Do
-not read credentials or cookies, query private endpoints, crawl pages in the
-background, or submit Filelist actions. See [SECURITY.md](SECURITY.md).
+Page-aware search, metadata, translation, and richer forum views remain future
+ideas for a separate opt-in add-on. Any such feature must use documented public
+sources, act only after a user gesture, disclose what leaves the browser, and
+avoid credentials, private endpoints, background crawling, and Filelist actions.
+See [SECURITY.md](SECURITY.md).
 
 ## Development
 

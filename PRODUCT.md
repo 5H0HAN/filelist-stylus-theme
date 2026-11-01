@@ -8,7 +8,8 @@ web
 
 ## Stack
 
-Stylus UserCSS (`.user.css`), as requested. The initial release is CSS only.
+Stylus UserCSS (`.user.css`) for the site theme, plus a standalone local HTML
+helper for explicit public search and copy-based translation.
 
 ## Users
 
@@ -24,11 +25,11 @@ A user-installed theme improves Filelist's existing interface without changing t
 
 ## Operating Context
 
-The theme runs in a user's browser through the Stylus extension on Filelist pages. Users keep using Filelist's own search, category, sort, and forum controls.
+The theme runs in a user's browser through the Stylus extension on Filelist pages. The optional helper runs separately and never reads the Filelist page. Users keep using Filelist's own search, category, sort, and forum controls.
 
 ## Capabilities and Constraints
 
-The initial theme may restyle existing site controls and content. CSS cannot create working external search, metadata lookup, translation, or new forum controls. Keep the UserCSS visual-only. Any later companion feature must be separately installed and start from an explicit user action. Search and metadata use documented public sources; translation and forum views may use only content already rendered in the user's authorized page. Disclose any text sent off-site. Do not read credentials or session data, query private endpoints, bypass authentication, submit tracker actions, or crawl pages in the background.
+The UserCSS is visual-only. The helper allows manual title searches on public search/metadata sites and copy-based translation; it makes no request until the user submits a search or opens a provider link. Translation text stays local unless the user copies it and pastes it into that provider. Any later page-aware feature must be separately installed and start from an explicit user action. Search and metadata use documented public sources; translation and forum views may use only content already rendered in the user's authorized page. Disclose any text sent off-site. Do not read credentials or session data, query private endpoints, bypass authentication, submit tracker actions, or crawl pages in the background.
 
 ## Product Principles
 
