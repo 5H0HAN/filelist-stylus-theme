@@ -266,16 +266,16 @@
     cursor: pointer;
   }
 
-  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]),
-  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]) {
+  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled),
+  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled) {
     border-color: #d69e4e !important;
     background: var(--fl-amber) !important;
     color: #241b10 !important;
     font-weight: 650;
   }
 
-  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]):hover,
-  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]), input[type="submit"]):hover {
+  form[action*="browse.php"] :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled):hover,
+  form:has(input[placeholder*="IMDb"]) :is(button:not([type="button"]):not([type="reset"]):enabled, input[type="submit"]:enabled):hover {
     background: var(--fl-amber-bright) !important;
   }
 
@@ -351,25 +351,6 @@
   * {
     scrollbar-color: var(--fl-border) var(--fl-canvas);
     scrollbar-width: thin;
-  }
-
-  ::-webkit-scrollbar {
-    inline-size: 0.75rem;
-    block-size: 0.75rem;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--fl-canvas);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border: 2px solid var(--fl-canvas);
-    border-radius: 999px;
-    background: var(--fl-border);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--fl-muted);
   }
 
   :focus-visible {
