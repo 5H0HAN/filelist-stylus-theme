@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T22:12:26Z",
+  "title": "Design System: Filelist Night Archive",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Archive canvas",
+        "canonical": "#111411",
+        "tonalRamp": ["#101210", "#111411", "#1a1d19", "#30332e", "#50534d", "#777a74", "#b6b8b2", "#f2f1ec"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Reading surface",
+        "canonical": "#191e19",
+        "tonalRamp": ["#121612", "#191e19", "#252a24", "#3b4039", "#5a6058", "#7d837a", "#b4b8b0", "#f1f1eb"]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised surface",
+        "canonical": "#222920",
+        "tonalRamp": ["#171d16", "#222920", "#30372e", "#485144", "#626b5e", "#879081", "#b9c0b4", "#f0f2eb"]
+      },
+      "hover": {
+        "role": "neutral",
+        "displayName": "Hover surface",
+        "canonical": "#2a3026",
+        "tonalRamp": ["#1c2119", "#2a3026", "#394032", "#515a46", "#717b64", "#9aa48e", "#c4cbbb", "#f2f3ec"]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Divider line",
+        "canonical": "#394238",
+        "tonalRamp": ["#20261f", "#394238", "#535d50", "#6c7668", "#879084", "#aab0a5", "#cbd0c7", "#f2f3ee"]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Parchment text",
+        "canonical": "#eee9dc",
+        "tonalRamp": ["#24231f", "#45443e", "#67655d", "#89877d", "#aaa79b", "#c5c1b4", "#ddd8ca", "#eee9dc"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Secondary text",
+        "canonical": "#b9bdaf",
+        "tonalRamp": ["#292c27", "#474b43", "#62675e", "#7c8278", "#989e92", "#b9bdaf", "#d4d7ce", "#f1f2ed"]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "Wayfinding amber",
+        "canonical": "#f0bd69",
+        "tonalRamp": ["#302515", "#4a371b", "#684d23", "#86622d", "#a77c3b", "#c7954d", "#f0bd69", "#ffe2ad"]
+      },
+      "amber-bright": {
+        "role": "primary",
+        "displayName": "Focus amber",
+        "canonical": "#ffd18a",
+        "tonalRamp": ["#362616", "#59401e", "#7b5728", "#a07132", "#c18a44", "#e0a65c", "#ffd18a", "#fff0d5"]
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "Interface sans",
+        "purpose": "Compact, readable site controls and result data."
+      },
+      "display": {
+        "displayName": "Archive serif",
+        "purpose": "Existing semantic headings only; Filelist controls their hierarchy."
+      },
+      "code": {
+        "displayName": "Data monospace",
+        "purpose": "Code and preformatted content only."
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {"name": "compact", "value": "760px"}
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Amber is reserved for Filelist's browse submission.",
+      "html": "<button class=\"ds-btn-primary\">Search</button>",
+      "css": ".ds-btn-primary { background: var(--fl-amber); color: #241b10; padding: 0.5rem 0.75rem; min-height: 2.5rem; border: 1px solid #d69e4e; border-radius: 7px; font: inherit; font-weight: 650; cursor: pointer; } .ds-btn-primary:hover { background: var(--fl-amber-bright); } .ds-btn-primary:focus-visible { outline: 2px solid var(--fl-amber-bright); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Utility and reset actions remain quiet against the surface.",
+      "html": "<button class=\"ds-btn-secondary\">Reset</button>",
+      "css": ".ds-btn-secondary { background: var(--fl-raised); color: var(--fl-text); padding: 0.5rem 0.75rem; min-height: 2.5rem; border: 1px solid var(--fl-border); border-radius: 7px; font: inherit; font-weight: 600; cursor: pointer; } .ds-btn-secondary:hover { background: var(--fl-hover); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--fl-amber-bright); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "The query field expands before the native filter controls wrap.",
+      "html": "<input class=\"ds-input-search\" type=\"search\" placeholder=\"Search Filelist\" />",
+      "css": ".ds-input-search { background: var(--fl-canvas); color: var(--fl-text); padding: 0.5rem 0.75rem; min-height: 2.5rem; border: 1px solid var(--fl-border); border-radius: 7px; font: inherit; } .ds-input-search::placeholder { color: var(--fl-muted); opacity: 1; } .ds-input-search:focus-visible { outline: 2px solid var(--fl-amber-bright); outline-offset: 2px; }"
+    },
+    {
+      "name": "Primary navigation",
+      "kind": "nav",
+      "description": "The site's navigation keeps its labels and gains a quiet dark surface.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Browse</a><a href=\"#\">Forums</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 0.75rem; padding: 0.75rem 1rem; background: var(--fl-surface); border: 1px solid var(--fl-border); border-radius: 9px; } .ds-nav a { color: var(--fl-text); text-decoration: none; } .ds-nav a:hover { color: var(--fl-amber-bright); } .ds-nav a:focus-visible { outline: 2px solid var(--fl-amber-bright); outline-offset: 2px; }"
+    },
+    {
+      "name": "Result row",
+      "kind": "custom",
+      "description": "Quiet separators and tabular figures keep dense result metadata scannable.",
+      "html": "<div class=\"ds-result-row\"><span>Result title</span><span>1,234</span></div>",
+      "css": ".ds-result-row { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--fl-border); color: var(--fl-text); font-variant-numeric: tabular-nums; } .ds-result-row:hover { background: var(--fl-hover); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Night Archive",
+    "overview": "Filelist is a dense, task-focused site. Night Archive gives it a quiet reading surface: charcoal panels, warm paper text, and amber wayfinding. The site's content, links, and existing actions remain recognizable.",
+    "keyCharacteristics": [
+      "Amber highlights only the browse action, links, and keyboard focus.",
+      "Dense result data uses clear row separators and tabular numerals.",
+      "Serif headings add a restrained editorial note; the interface stays compact.",
+      "No external assets or motion are needed to carry the visual identity."
+    ],
+    "rules": [
+      {"name": "The Preserve-Native-Behavior Rule", "body": "Preserve Filelist's existing links, forms, and labels.", "section": "components"},
+      {"name": "The No-External-Requests Rule", "body": "Keep scripts, remote assets, analytics, and automatic requests out of this UserCSS.", "section": "colors"}
+    ],
+    "dos": [
+      "Do preserve native Filelist links, forms, and labels.",
+      "Do keep focus visible and respect reduced-motion preferences.",
+      "Do scope future script-based features separately and make them opt in."
+    ],
+    "donts": [
+      "Don't add JavaScript, remote fonts, images, analytics, or automatic requests to this UserCSS.",
+      "Don't use CSS-generated text as a substitute for working controls.",
+      "Don't style every site action as a primary action."
+    ]
+  }
+}

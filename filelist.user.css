@@ -1,0 +1,380 @@
+/* ==UserStyle==
+@name           Filelist Night Archive
+@namespace      https://github.com/5H0HAN/filelist-stylus-theme
+@version        0.1.0
+@description    A calm dark theme for browsing and reading Filelist.
+@author         5H0HAN
+@license        MIT
+==/UserStyle== */
+
+@-moz-document url-prefix("https://filelist.io/") {
+  :root {
+    color-scheme: dark;
+    --fl-canvas: #111411;
+    --fl-surface: #191e19;
+    --fl-raised: #222920;
+    --fl-hover: #2a3026;
+    --fl-border: #394238;
+    --fl-text: #eee9dc;
+    --fl-muted: #b9bdaf;
+    --fl-amber: #f0bd69;
+    --fl-amber-bright: #ffd18a;
+    --fl-space-1: 0.5rem;
+    --fl-space-2: 0.75rem;
+    --fl-space-3: 1rem;
+    --fl-radius-control: 7px;
+    --fl-radius-panel: 9px;
+    --fl-control-height: 2.5rem;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    background: var(--fl-canvas) !important;
+    color: var(--fl-text) !important;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    background-image: none !important;
+  }
+
+  .wrapper,
+  #wrapper {
+    box-sizing: border-box;
+    width: min(98vw, 1480px) !important;
+    max-width: 1480px !important;
+    margin-inline: auto !important;
+    background: var(--fl-canvas) !important;
+    background-image: none !important;
+  }
+
+  #header,
+  .header,
+  #top,
+  #toplinks,
+  #userbar {
+    background: var(--fl-surface) !important;
+    background-image: none !important;
+    color: var(--fl-text);
+  }
+
+  #content,
+  #maincolumn,
+  .maincolumn,
+  #sidebar,
+  .sidebar {
+    background: var(--fl-canvas) !important;
+    background-image: none !important;
+    color: var(--fl-text);
+  }
+
+  .box,
+  .panel,
+  .block {
+    border-color: var(--fl-border) !important;
+    background: var(--fl-surface) !important;
+    background-image: none !important;
+  }
+
+  #menu,
+  #navigation,
+  .navigation {
+    background: var(--fl-surface) !important;
+    border: 1px solid var(--fl-border);
+    border-radius: var(--fl-radius-panel);
+  }
+
+  #menu a,
+  #navigation a,
+  .navigation a {
+    color: var(--fl-text) !important;
+    text-decoration: none;
+  }
+
+  #menu a:hover,
+  #navigation a:hover,
+  .navigation a:hover {
+    color: var(--fl-amber-bright) !important;
+    background: var(--fl-hover);
+  }
+
+  a {
+    color: var(--fl-amber) !important;
+    text-decoration-color: rgb(240 189 105 / 45%);
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover {
+    color: var(--fl-amber-bright) !important;
+    text-decoration-color: currentColor;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--fl-amber-bright) !important;
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  legend {
+    color: var(--fl-text) !important;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.25;
+  }
+
+  small,
+  .small,
+  .date,
+  .time,
+  .muted {
+    color: var(--fl-muted) !important;
+  }
+
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  input[type="password"],
+  select,
+  textarea {
+    box-sizing: border-box;
+    min-height: var(--fl-control-height);
+    padding: var(--fl-space-1) var(--fl-space-2);
+    border: 1px solid var(--fl-border) !important;
+    border-radius: var(--fl-radius-control);
+    background: var(--fl-canvas) !important;
+    color: var(--fl-text) !important;
+    font: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--fl-muted) !important;
+    opacity: 1;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--fl-amber);
+  }
+
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    min-height: var(--fl-control-height);
+    padding: var(--fl-space-1) var(--fl-space-2);
+    border: 1px solid var(--fl-border) !important;
+    border-radius: var(--fl-radius-control);
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  form[action*="browse.php"] input[type="submit"],
+  form:has(input[placeholder*="IMDb"]) input[type="submit"] {
+    border: 1px solid #d69e4e !important;
+    background: var(--fl-amber) !important;
+    color: #241b10 !important;
+    font-weight: 650;
+  }
+
+  button:hover,
+  input[type="button"]:hover,
+  input[type="submit"]:hover,
+  input[type="reset"]:hover {
+    background: var(--fl-hover) !important;
+  }
+
+  form[action*="browse.php"] input[type="submit"]:hover,
+  form:has(input[placeholder*="IMDb"]) input[type="submit"]:hover {
+    background: var(--fl-amber-bright) !important;
+  }
+
+  button:disabled,
+  input[type="button"]:disabled,
+  input[type="submit"]:disabled,
+  input[type="reset"]:disabled,
+  input[type="text"]:disabled,
+  input[type="search"]:disabled,
+  input[type="number"]:disabled,
+  input[type="password"]:disabled,
+  select:disabled,
+  textarea:disabled {
+    border-color: var(--fl-border) !important;
+    background: var(--fl-raised) !important;
+    color: var(--fl-muted) !important;
+    cursor: not-allowed;
+  }
+
+  [role="alert"] {
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--fl-border);
+    border-radius: 7px;
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+  }
+
+  /* Filelist's browse form: retain its native controls and submission behavior. */
+  form[action*="browse.php"],
+  form:has(input[placeholder*="IMDb"]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--fl-space-1);
+    padding: var(--fl-space-3);
+    border: 1px solid var(--fl-border);
+    border-radius: var(--fl-radius-panel);
+    background: var(--fl-surface) !important;
+  }
+
+  form[action*="browse.php"] input[type="text"],
+  form:has(input[placeholder*="IMDb"]) input[type="text"] {
+    flex: 1 1 22rem;
+    min-width: min(100%, 15rem);
+  }
+
+  form[action*="browse.php"] select,
+  form:has(input[placeholder*="IMDb"]) select {
+    flex: 0 1 12rem;
+    max-width: 100%;
+  }
+
+  form[action*="browse.php"] label,
+  form:has(input[placeholder*="IMDb"]) label {
+    color: var(--fl-muted);
+  }
+
+  form[action*="browse.php"] button,
+  form[action*="browse.php"] input[type="submit"],
+  form:has(input[placeholder*="IMDb"]) button,
+  form:has(input[placeholder*="IMDb"]) input[type="submit"] {
+    border-color: #d69e4e !important;
+    background: var(--fl-amber) !important;
+    color: #241b10 !important;
+  }
+
+  form[action*="browse.php"] button:hover,
+  form[action*="browse.php"] input[type="submit"]:hover,
+  form:has(input[placeholder*="IMDb"]) button:hover,
+  form:has(input[placeholder*="IMDb"]) input[type="submit"]:hover {
+    background: var(--fl-amber-bright) !important;
+  }
+
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]),
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) {
+    border-collapse: collapse;
+    border-color: var(--fl-border) !important;
+    color: var(--fl-text) !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) th,
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) th {
+    padding: var(--fl-space-1) var(--fl-space-2);
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font-size: 0.82rem;
+    font-weight: 650;
+    text-align: start;
+  }
+
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td,
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td {
+    padding: var(--fl-space-1) var(--fl-space-2);
+    border-color: var(--fl-border) !important;
+    color: inherit;
+    vertical-align: middle;
+  }
+
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:nth-child(even) > td,
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:nth-child(even) > td {
+    background: rgb(255 255 255 / 2%) !important;
+  }
+
+  #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:hover > td,
+  .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) tbody tr:hover > td {
+    background: var(--fl-hover) !important;
+  }
+
+  blockquote,
+  .quote {
+    margin: var(--fl-space-2) 0;
+    padding: var(--fl-space-2) var(--fl-space-3);
+    border: 1px solid var(--fl-border);
+    border-radius: var(--fl-radius-control);
+    background: var(--fl-surface) !important;
+    color: var(--fl-muted) !important;
+  }
+
+  pre,
+  code {
+    border-radius: 5px;
+    background: var(--fl-raised) !important;
+    color: var(--fl-text) !important;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--fl-border);
+  }
+
+  ::selection {
+    background: #725426;
+    color: #fff7e8;
+  }
+
+  :focus-visible {
+    scroll-margin-block: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .wrapper,
+    #wrapper {
+      width: 100% !important;
+      padding-inline: 0.55rem;
+    }
+
+    form[action*="browse.php"],
+    form:has(input[placeholder*="IMDb"]) {
+      align-items: stretch;
+      padding: 0.75rem;
+    }
+
+    form[action*="browse.php"] input[type="text"],
+    form:has(input[placeholder*="IMDb"]) input[type="text"] {
+      flex-basis: 100%;
+      min-width: 0;
+    }
+
+    #maincolumn table:has(> tbody > tr > td > a[href*="details.php"]),
+    .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
