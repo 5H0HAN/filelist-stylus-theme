@@ -319,6 +319,37 @@
     background: var(--fl-hover) !important;
   }
 
+  /* Filelist's current browse layout uses floated torrentrow/torrenttable divs. */
+  :is(#maincolumn, .maincolumn, #content) :is(.visitedlinks, div:has(> .torrentrow)) {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scrollbar-gutter: stable;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) .torrentrow {
+    min-width: 60rem;
+    border-bottom: 1px solid var(--fl-border);
+    color: var(--fl-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) .torrentrow:hover,
+  :is(#maincolumn, .maincolumn, #content) .torrentrow:focus-within {
+    background: var(--fl-hover);
+  }
+
+  :is(#maincolumn, .maincolumn, #content) .torrentrow > .torrenttable {
+    box-sizing: border-box;
+    padding-block: 0.4rem;
+  }
+
+  :is(#maincolumn, .maincolumn, #content) .torrentrow > .torrenttable:nth-child(2) a[href*="details.php"] {
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+
   blockquote,
   .quote {
     margin: var(--fl-space-2) 0;
@@ -399,6 +430,7 @@
     .maincolumn table:has(> tbody > tr > td > a[href*="details.php"]) td {
       white-space: nowrap;
     }
+
   }
 
   @media (prefers-reduced-motion: reduce) {

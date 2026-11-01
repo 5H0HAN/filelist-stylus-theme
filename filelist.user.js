@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Filelist Night Archive Tools
 // @namespace    https://github.com/5H0HAN/filelist-stylus-theme
-// @version      0.2.0
-// @description  Local browse filtering, metadata search, and selected-text translation for Filelist.
+// @version      0.3.0
+// @description  Local browse filtering, public title search, metadata lookup, and selected-text translation for Filelist.
 // @match        https://filelist.io/*
 // @run-at       document-idle
 // @noframes
@@ -15,8 +15,27 @@
   if (window.top !== window.self || document.getElementById("filelist-night-archive-tools")) return;
 
   const providers = Object.freeze({
+    google: { name: "Google Web Search", url: "https://www.google.com/search", parameter: "q" },
+    duckduckgo: { name: "DuckDuckGo", url: "https://html.duckduckgo.com/html/", parameter: "q" },
+    bing: { name: "Bing", url: "https://www.bing.com/search", parameter: "q" },
     imdb: { name: "IMDb", url: "https://www.imdb.com/find/", parameter: "q" },
-    tmdb: { name: "TMDB", url: "https://www.themoviedb.org/search", parameter: "query" }
+    tmdb: { name: "TMDB", url: "https://www.themoviedb.org/search", parameter: "query" },
+    archive: { name: "Internet Archive · public catalog", url: "https://archive.org/search.php", parameter: "query" },
+    academic: { name: "Academic Torrents · research datasets", url: "https://academictorrents.com/browse.php", parameter: "search" },
+    fossTorrents: {
+      name: "FOSS Torrents pages · Google",
+      recipient: "Google",
+      url: "https://www.google.com/search",
+      parameter: "q",
+      transform: (query) => `site:fosstorrents.com ${query}`
+    },
+    linuxTracker: {
+      name: "LinuxTracker pages · Google",
+      recipient: "Google",
+      url: "https://www.google.com/search",
+      parameter: "q",
+      transform: (query) => `site:linuxtracker.org ${query}`
+    }
   });
 
   function installBrowseFilter() {
@@ -32,19 +51,32 @@
     }
 
     const content = document.querySelector("#maincolumn, .maincolumn, #content") ?? document.body;
-    const candidates = [];
-    for (const table of content.querySelectorAll("table")) {
-      const rows = [...table.querySelectorAll(":scope > tbody > tr, :scope > tr")].filter((row) =>
-        isRendered(row) && row.querySelector(":scope > td > a[href*='details.php'], :scope > th > a[href*='details.php']")
-      );
-      if (rows.length) candidates.push({ table, rows });
+    const torrentRows = [...content.querySelectorAll(".torrentrow")].filter((row) =>
+      isRendered(row) && row.querySelector("a[href*='details.php']")
+    );
+    let resultContainer;
+    let resultRows = torrentRows;
+
+    if (resultRows.length) {
+      resultContainer = resultRows[0].parentElement;
+      resultRows = resultRows.filter((row) => row.parentElement === resultContainer);
+    } else {
+      const candidates = [];
+      for (const table of content.querySelectorAll("table")) {
+        const rows = [...table.querySelectorAll(":scope > tbody > tr, :scope > tr")].filter((row) =>
+          isRendered(row) && row.querySelector("a[href*='details.php']")
+        );
+        if (rows.length) candidates.push({ table, rows });
+      }
+
+      candidates.sort((left, right) => right.rows.length - left.rows.length);
+      const resultTable = candidates[0];
+      if (!resultTable) return;
+      resultContainer = resultTable.table;
+      resultRows = resultTable.rows;
     }
 
-    candidates.sort((left, right) => right.rows.length - left.rows.length);
-    const resultTable = candidates[0];
-    if (!resultTable) return;
-
-    const rows = resultTable.rows.map((row) => ({ row, initiallyHidden: row.hidden }));
+    const rows = resultRows.map((row) => ({ row, initiallyHidden: row.hidden }));
     if (!rows.length) return;
     const initialVisibleCount = rows.filter((item) => !item.initiallyHidden).length;
     const host = document.createElement("div");
@@ -132,7 +164,7 @@
     });
     section.append(label, input, clear, status);
     shadow.append(style, section);
-    resultTable.table.before(host);
+    resultContainer.before(host);
     updateFilter(true);
   }
 
@@ -186,21 +218,21 @@
   heading.textContent = "Filelist page tools";
   const searchDisclosure = document.createElement("p");
   searchDisclosure.className = "disclosure";
-  searchDisclosure.textContent = "Search opens IMDb or TMDB in a new tab and sends only the text in this field in the URL, after you press Search.";
+  searchDisclosure.textContent = "The selected service receives this query in its URL only after Search. FOSS Torrents and LinuxTracker options go to Google with a fixed site filter. There are no tracker API requests or downloads. Search terms may appear in browser history or service logs.";
 
   const searchLabel = document.createElement("label");
   searchLabel.htmlFor = "flna-search-query";
-  searchLabel.textContent = "Title or name to search";
+  searchLabel.textContent = "Title or filename";
   const searchInput = document.createElement("input");
   searchInput.id = searchLabel.htmlFor;
   searchInput.type = "search";
   searchInput.maxLength = 300;
   searchInput.autocomplete = "off";
-  searchInput.placeholder = "Enter a title";
+  searchInput.placeholder = "Enter a title or filename";
 
   const providerLabel = document.createElement("label");
   providerLabel.htmlFor = "flna-search-provider";
-  providerLabel.textContent = "Metadata provider";
+  providerLabel.textContent = "Search provider";
   const providerSelect = document.createElement("select");
   providerSelect.id = providerLabel.htmlFor;
   for (const [value, provider] of Object.entries(providers)) {
@@ -322,19 +354,24 @@
     const query = searchInput.value.trim();
     const provider = providers[providerSelect.value];
     if (!provider) {
-      searchStatus.textContent = "Choose IMDb or TMDB before searching.";
+      searchStatus.textContent = "Choose a search provider before searching.";
       return;
     }
     if (!query) {
-      searchStatus.textContent = "Enter a title or use selected text before searching.";
+      searchStatus.textContent = "Enter a title or filename, or use selected text before searching.";
       searchInput.focus();
       return;
     }
 
     const destination = new URL(provider.url);
-    destination.searchParams.set(provider.parameter, query);
+    if (destination.protocol !== "https:") {
+      searchStatus.textContent = "This search destination is not available securely.";
+      return;
+    }
+    const submittedQuery = provider.transform ? provider.transform(query) : query;
+    destination.searchParams.set(provider.parameter, submittedQuery);
     window.open(destination.href, "_blank", "noopener,noreferrer");
-    searchStatus.textContent = `Opening ${provider.name} in a new tab. Only the text in this search box is sent. If no tab opens, check your browser's popup settings.`;
+    searchStatus.textContent = `Opening ${provider.name} in a new tab. ${provider.recipient ?? provider.name} receives ${provider.transform ? "the text in this box with a fixed site filter" : "only the text in this box"}. If no tab opens, check your browser's popup settings.`;
   });
 
   translateButton.addEventListener("click", () => {
