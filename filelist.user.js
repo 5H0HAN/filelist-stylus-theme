@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Filelist Night Archive Tools
 // @namespace    https://github.com/5H0HAN/filelist-stylus-theme
-// @version      0.1.0
-// @description  Optional in-page metadata search and selected-text translation tools for Filelist.
+// @version      0.2.0
+// @description  Local browse filtering, metadata search, and selected-text translation for Filelist.
 // @match        https://filelist.io/*
 // @run-at       document-idle
 // @noframes
@@ -18,6 +18,125 @@
     imdb: { name: "IMDb", url: "https://www.imdb.com/find/", parameter: "q" },
     tmdb: { name: "TMDB", url: "https://www.themoviedb.org/search", parameter: "query" }
   });
+
+  function installBrowseFilter() {
+    if (window.location.pathname !== "/browse.php") return;
+
+    function isRendered(element) {
+      if (!element.getClientRects().length) return false;
+      for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
+        const computed = window.getComputedStyle(ancestor);
+        if (computed.visibility !== "visible" || Number(computed.opacity) === 0) return false;
+      }
+      return true;
+    }
+
+    const content = document.querySelector("#maincolumn, .maincolumn, #content") ?? document.body;
+    const candidates = [];
+    for (const table of content.querySelectorAll("table")) {
+      const rows = [...table.querySelectorAll(":scope > tbody > tr, :scope > tr")].filter((row) =>
+        isRendered(row) && row.querySelector(":scope > td > a[href*='details.php'], :scope > th > a[href*='details.php']")
+      );
+      if (rows.length) candidates.push({ table, rows });
+    }
+
+    candidates.sort((left, right) => right.rows.length - left.rows.length);
+    const resultTable = candidates[0];
+    if (!resultTable) return;
+
+    const rows = resultTable.rows.map((row) => ({ row, initiallyHidden: row.hidden }));
+    if (!rows.length) return;
+    const initialVisibleCount = rows.filter((item) => !item.initiallyHidden).length;
+    const host = document.createElement("div");
+    host.id = "filelist-night-archive-local-filter";
+    const shadow = host.attachShadow({ mode: "open" });
+    const style = document.createElement("style");
+    style.textContent = `
+      :host {
+        display: block;
+        margin: 0 0 1rem;
+        color-scheme: dark;
+        --fl-canvas: #111411;
+        --fl-surface: #191e19;
+        --fl-raised: #222920;
+        --fl-hover: #2a3026;
+        --fl-border: #394238;
+        --fl-text: #eee9dc;
+        --fl-muted: #b9bdaf;
+        --fl-amber: #f0bd69;
+        --fl-amber-bright: #ffd18a;
+        font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      .filter { display: grid; grid-template-columns: minmax(12rem, 1fr) auto; gap: .5rem .75rem; align-items: end; padding: .85rem; border: 1px solid var(--fl-border); border-radius: 9px; background: var(--fl-surface); color: var(--fl-text); }
+      label { grid-column: 1 / -1; color: var(--fl-text); font-weight: 650; }
+      input, button { min-height: 2.75rem; border: 1px solid var(--fl-border); border-radius: 7px; background: var(--fl-canvas); color: var(--fl-text); font: inherit; }
+      input { width: 100%; padding: .55rem .65rem; }
+      input::placeholder { color: var(--fl-muted); opacity: 1; }
+      button { padding: .55rem .8rem; background: var(--fl-raised); cursor: pointer; font-weight: 650; }
+      button:hover { border-color: var(--fl-amber); background: var(--fl-hover); }
+      input:focus-visible, button:focus-visible { outline: 2px solid var(--fl-amber-bright); outline-offset: 2px; }
+      .status { grid-column: 1 / -1; min-height: 1.4em; margin: 0; color: var(--fl-muted); }
+      @media (max-width: 520px) {
+        .filter { grid-template-columns: 1fr; }
+        label, .status { grid-column: 1; }
+      }
+    `;
+
+    const section = document.createElement("section");
+    section.className = "filter";
+    section.setAttribute("aria-label", "Filter visible browse results");
+    const label = document.createElement("label");
+    label.htmlFor = "flna-local-filter-query";
+    label.textContent = "Filter this results page";
+    const input = document.createElement("input");
+    input.id = label.htmlFor;
+    input.type = "search";
+    input.maxLength = 200;
+    input.autocomplete = "off";
+    input.placeholder = "Match visible title, category, or details";
+    const clear = document.createElement("button");
+    clear.type = "button";
+    clear.textContent = "Clear filter";
+    const status = document.createElement("p");
+    status.className = "status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+
+    let statusTimer;
+    function updateFilter(announceNow = false) {
+      const terms = input.value.trim().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      for (const { row, initiallyHidden } of rows) {
+        if (initiallyHidden) continue;
+        const text = terms.length
+          ? (row.innerText ?? row.textContent ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+          : "";
+        const matches = terms.length === 0 || terms.every((term) => text.includes(term));
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      }
+      const message = terms.length
+        ? `${visible} of ${initialVisibleCount} visible rows match. This filter stays on this page.`
+        : `Showing ${visible} visible result rows. Filtering stays on this page.`;
+      window.clearTimeout(statusTimer);
+      if (announceNow) status.textContent = message;
+      else statusTimer = window.setTimeout(() => { status.textContent = message; }, 400);
+    }
+
+    input.addEventListener("input", () => updateFilter());
+    clear.addEventListener("click", () => {
+      input.value = "";
+      updateFilter(true);
+      input.focus();
+    });
+    section.append(label, input, clear, status);
+    shadow.append(style, section);
+    resultTable.table.before(host);
+    updateFilter(true);
+  }
+
+  installBrowseFilter();
 
   const host = document.createElement("div");
   host.id = "filelist-night-archive-tools";
@@ -67,7 +186,7 @@
   heading.textContent = "Filelist page tools";
   const searchDisclosure = document.createElement("p");
   searchDisclosure.className = "disclosure";
-  searchDisclosure.textContent = "IMDb or TMDB receives the title below in a URL only after you press Search.";
+  searchDisclosure.textContent = "Search opens IMDb or TMDB in a new tab and sends only the text in this field in the URL, after you press Search.";
 
   const searchLabel = document.createElement("label");
   searchLabel.htmlFor = "flna-search-query";
@@ -107,11 +226,11 @@
   translationHeading.textContent = "Translate selected text";
   const translationDisclosure = document.createElement("p");
   translationDisclosure.className = "disclosure";
-  translationDisclosure.textContent = "Google Translate receives the reviewed text in a URL only after you press Translate. Avoid private text.";
+  translationDisclosure.textContent = "Translate opens Google Translate in a new tab and sends the reviewed text in the URL, after you press Translate. Avoid private text.";
 
   const translationLabel = document.createElement("label");
   translationLabel.htmlFor = "flna-translation-text";
-  translationLabel.textContent = "Review visible text before sending";
+  translationLabel.textContent = "Review text before sending";
   const translationText = document.createElement("textarea");
   translationText.id = translationLabel.htmlFor;
   translationText.maxLength = 12_000;
@@ -180,7 +299,7 @@
   function captureSelection(target, status) {
     const selected = window.getSelection()?.toString().trim() ?? "";
     if (!selected) {
-      status.textContent = "Select visible page text first, or type it into the field.";
+      status.textContent = "Select page text first, or type it into the field.";
       return;
     }
     target.value = selected.slice(0, target.maxLength);
@@ -215,7 +334,7 @@
     const destination = new URL(provider.url);
     destination.searchParams.set(provider.parameter, query);
     window.open(destination.href, "_blank", "noopener,noreferrer");
-    searchStatus.textContent = `Opening ${provider.name}. Only the text in this search box is sent. If no tab opens, check your browser's popup settings.`;
+    searchStatus.textContent = `Opening ${provider.name} in a new tab. Only the text in this search box is sent. If no tab opens, check your browser's popup settings.`;
   });
 
   translateButton.addEventListener("click", () => {
@@ -237,7 +356,7 @@
     }
 
     window.open(destination.href, "_blank", "noopener,noreferrer");
-    translationStatus.textContent = "Opening Google Translate with the reviewed text. If no tab opens, check your browser's popup settings.";
+    translationStatus.textContent = "Opening Google Translate in a new tab with the reviewed text. If no tab opens, check your browser's popup settings.";
   });
 
   copyButton.addEventListener("click", async () => {

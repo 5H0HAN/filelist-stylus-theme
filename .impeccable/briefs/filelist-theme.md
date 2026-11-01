@@ -14,9 +14,9 @@ search, category, sort, and forum controls more comfortably.
 
 Preserve Filelist content, links, and existing behavior. Keep the UserCSS
 limited to `https://filelist.io/`, with no remote resources or tracking. Keep
-the optional userscript limited to the exact Filelist host, visible/user-entered
-text, and direct user actions. No background lookup, automatic translation,
-tracker search, or download action.
+the optional userscript limited to the exact Filelist host, the current
+selection or user-entered text, and direct user actions. No background lookup,
+automatic translation, tracker search, or download action.
 
 ## Direction contract
 
@@ -36,8 +36,9 @@ browse form a full-width, wrapped control row above the results; use calm table
 headers, readable row spacing, and visible keyboard focus.
 
 **FORM:** Code-led UserCSS and one optional userscript. New actions stay inside
-Filelist, show their destination, send data only after a direct user action,
-and use fixed public metadata/translation providers.
+Filelist, keep local filtering on the page, show external destinations, send
+data only after a direct user action, and use fixed public metadata/translation
+providers.
 
 **FINISH:** Preserve keyboard access, narrow-screen layouts, and the native
 Filelist controls. Document the exact userscript permissions and text flows.

@@ -14,7 +14,7 @@ tool panel inside Filelist pages.
 ## Users
 
 Filelist users who want a more legible interface and deliberate public metadata
-lookup or visible-text translation.
+lookup or selected-text translation.
 
 ## Product Purpose
 
@@ -30,13 +30,14 @@ controls.
 
 ## Capabilities and Constraints
 
-The UserCSS is visual only. The userscript offers title metadata searches on
-IMDb and TMDB and sends user-entered or explicitly selected visible text to
-Google Translate only after a direct click. It does not search torrent
-trackers, submit Filelist forms, automate downloads, translate in the
-background, or make background requests. It does not query private endpoints
-or read credentials, cookies, hidden fields, or session state. It uses no
-external scripts, analytics, or persistent storage.
+The UserCSS is visual only. The userscript filters rendered browse-result rows
+locally, offers title metadata searches on IMDb and TMDB, and sends
+user-entered or currently selected text to Google Translate only after a
+direct click. External searches and translation open in a new tab. It does not
+search torrent trackers, submit Filelist forms, automate downloads, translate
+in the background, or make background requests. It does not query private
+endpoints or read credentials, cookies, hidden fields, or session state. It
+uses no external scripts, analytics, or persistent storage.
 
 ## Product Principles
 
