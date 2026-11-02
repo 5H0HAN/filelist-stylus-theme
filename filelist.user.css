@@ -1,8 +1,8 @@
 /* ==UserStyle==
 @name           Filelist Night Archive
 @namespace      https://github.com/5H0HAN/filelist-stylus-theme
-@version        0.3.0
-@description    A calm dark theme for browsing and reading Filelist.
+@version        0.4.0
+@description    A library-inspired dark theme for browsing and reading Filelist.
 @author         5H0HAN
 @license        MIT
 ==/UserStyle== */
@@ -444,6 +444,325 @@
   }
 }
 
+@-moz-document url-prefix("https://filelist.io/browse.php") {
+  #maincolumn .cblock,
+  #maincolumn .cblock-content,
+  #maincolumn .cblock-innercontent {
+    box-sizing: border-box;
+    border-color: var(--fl-border) !important;
+    background: var(--fl-canvas) !important;
+    background-image: none !important;
+    color: var(--fl-text) !important;
+  }
+
+  #maincolumn .cblock {
+    overflow: clip;
+    border-radius: 14px;
+    background: var(--fl-surface) !important;
+  }
+
+  #maincolumn .cblock-content {
+    padding: 0.5rem;
+  }
+
+  #maincolumn .cblock-innercontent {
+    padding: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  #maincolumn form[action*="browse.php"]:has(input[name="search"]),
+  #maincolumn form[action*="browse.php"]:has(input[placeholder*="IMDb"]) {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    justify-content: flex-start;
+    margin: 0 0 0.75rem;
+    padding: 1rem;
+    border-color: var(--fl-border);
+    border-radius: 12px;
+    background: var(--fl-surface) !important;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(input[name="search"]) input:is([type="text"], [type="search"]),
+  #maincolumn form[action*="browse.php"]:has(input[placeholder*="IMDb"]) input:is([type="text"], [type="search"]) {
+    flex: 1 1 24rem;
+    min-width: min(100%, 16rem);
+    font-size: 1rem;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(input[name="search"]) select,
+  #maincolumn form[action*="browse.php"]:has(input[placeholder*="IMDb"]) select {
+    flex: 0 1 12rem;
+    min-width: 9rem;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(#catlist) {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(#catlist) #catlist {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem;
+    border: 1px solid var(--fl-border);
+    border-radius: 11px;
+    background: var(--fl-surface) !important;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(#catlist) #catlist label,
+  #maincolumn form[action*="browse.php"]:has(#catlist) #catlist a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--fl-border);
+    border-radius: 999px;
+    background: var(--fl-raised);
+    color: var(--fl-text) !important;
+    text-decoration: none;
+  }
+
+  #maincolumn form[action*="browse.php"]:has(#catlist) #catlist label:hover,
+  #maincolumn form[action*="browse.php"]:has(#catlist) #catlist a:hover {
+    border-color: var(--fl-amber);
+    background: var(--fl-hover);
+  }
+
+  #maincolumn div.visitedlinks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    align-items: stretch;
+    gap: 0.8rem;
+    max-width: 100%;
+    padding: 0.15rem;
+    overflow: visible;
+    scrollbar-gutter: auto;
+  }
+
+  #maincolumn .visitedlinks > .colhead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow {
+    /* Filelist browse order: type, title, actions, then tracker stats. */
+    display: grid !important;
+    grid-template-columns: 3.25rem repeat(6, minmax(0, 1fr));
+    grid-template-areas:
+      "type title title title title title title"
+      "type snatch snatch download download comments comments"
+      "type added added size size snatched snatched"
+      "type seeders seeders leechers leechers uploader uploader";
+    align-items: center;
+    gap: 0.45rem 0.3rem;
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0.85rem;
+    overflow: hidden;
+    border: 1px solid var(--fl-border);
+    border-radius: 12px;
+    background: var(--fl-surface) !important;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
+    color: var(--fl-text);
+    font-variant-numeric: tabular-nums;
+    transition: border-color 140ms ease, background-color 140ms ease, transform 140ms ease;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow:hover,
+  #maincolumn .visitedlinks > .torrentrow:focus-within {
+    border-color: color-mix(in srgb, var(--fl-amber) 55%, var(--fl-border));
+    background: var(--fl-raised) !important;
+    transform: translateY(-2px);
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable {
+    float: none !important;
+    clear: none !important;
+    box-sizing: border-box;
+    width: auto !important;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+    color: inherit;
+    font-size: 0.76rem;
+    line-height: 1.35;
+    text-align: start;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(1) {
+    grid-area: type;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.15rem;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(1) img {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(2) {
+    grid-area: title;
+    align-self: start;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--fl-border);
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(2) a[href*="details.php"] {
+    display: block;
+    color: var(--fl-amber-bright) !important;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(2) a[href*="details.php"]:hover {
+    color: var(--fl-amber) !important;
+    text-decoration: underline;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(3) { grid-area: snatch; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(4) { grid-area: download; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(5) { grid-area: comments; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(6) { grid-area: added; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(7) { grid-area: size; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(8) { grid-area: snatched; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(9) { grid-area: seeders; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(10) { grid-area: leechers; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(11) { grid-area: uploader; }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(3),
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(4),
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(5) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.12rem;
+    min-height: 1.8rem;
+    color: var(--fl-muted);
+    font-size: 0.64rem;
+    text-align: center;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(3) img,
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(4) img,
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(5) img {
+    max-width: 1.25rem;
+    max-height: 1.25rem;
+    object-fit: contain;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(3) a,
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(4) a,
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(5) a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: var(--fl-text) !important;
+    text-decoration: none;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(3) a::after { content: "Snatchlist"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(4) a::after { content: "Download"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(5) a::before { content: "Comments"; }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(n + 6):nth-child(-n + 11) {
+    min-height: 2.25rem;
+    padding: 0.35rem 0.4rem;
+    border: 1px solid var(--fl-border);
+    border-radius: 7px;
+    background: var(--fl-canvas);
+    color: var(--fl-muted);
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(6)::before { content: "Added"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(7)::before { content: "Size"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(8)::before { content: "Snatched"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(9)::before { content: "Seeders"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(10)::before { content: "Leechers"; }
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(11)::before { content: "Uploader"; }
+
+  #maincolumn .visitedlinks > .torrentrow > .torrenttable:nth-child(n + 6):nth-child(-n + 11)::before {
+    display: block;
+    margin-bottom: 0.12rem;
+    color: var(--fl-text);
+    font-size: 0.62rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #maincolumn .visitedlinks > .torrentrow > .clearfix,
+  #maincolumn .visitedlinks > .torrentrow > .clear {
+    display: none !important;
+  }
+
+  @media (max-width: 760px) {
+    #maincolumn .cblock-content {
+      padding: 0.2rem;
+    }
+
+    #maincolumn .cblock-innercontent {
+      padding: 0.6rem;
+    }
+
+    #maincolumn form[action*="browse.php"]:has(input[name="search"]),
+    #maincolumn form[action*="browse.php"]:has(input[placeholder*="IMDb"]) {
+      align-items: stretch;
+      padding: 0.75rem;
+    }
+
+    #maincolumn form[action*="browse.php"]:has(input[name="search"]) input:is([type="text"], [type="search"]),
+    #maincolumn form[action*="browse.php"]:has(input[placeholder*="IMDb"]) input:is([type="text"], [type="search"]) {
+      flex-basis: 100%;
+      min-width: 0;
+    }
+
+    #maincolumn .visitedlinks {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.55rem;
+    }
+
+    #maincolumn .visitedlinks > .torrentrow {
+      padding: 0.7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #maincolumn .visitedlinks > .torrentrow {
+      transition: none;
+    }
+  }
+}
+
 @-moz-document url-prefix("https://filelist.io/forums.php") {
   :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td[colspan]),
   :is(#maincolumn, .maincolumn, #content) table:has(> tbody > tr > td > a[href*="action=viewtopic"]),
@@ -603,6 +922,15 @@
 }
 
 @-moz-document url-prefix("https://filelist.io/details.php") {
+  #maincolumn .cblock,
+  #maincolumn .cblock-content,
+  #maincolumn .cblock-innercontent {
+    border-color: var(--fl-border) !important;
+    background: var(--fl-surface) !important;
+    background-image: none !important;
+    color: var(--fl-text) !important;
+  }
+
   :is(#maincolumn, .maincolumn, #content) {
     color: var(--fl-text) !important;
   }
@@ -625,6 +953,25 @@
 
   :is(#maincolumn, .maincolumn, #content) img {
     border-radius: var(--fl-radius-control);
+  }
+
+  #maincolumn .cblock-innercontent > div > div:has(> img[width="300"][height="450"]) {
+    float: left !important;
+    width: clamp(15rem, 30vw, 24rem) !important;
+    max-width: 48%;
+    margin: 0 1.4rem 1rem 0 !important;
+  }
+
+  #maincolumn .cblock-innercontent > div > div > img[width="300"][height="450"] {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border: 1px solid var(--fl-border);
+    border-radius: 12px;
+    box-shadow: 0 16px 42px rgb(0 0 0 / 32%);
   }
 
   :is(#maincolumn, .maincolumn, #content) iframe {
@@ -672,6 +1019,13 @@
   }
 
   @media (max-width: 760px) {
+    #maincolumn .cblock-innercontent > div > div:has(> img[width="300"][height="450"]) {
+      float: none !important;
+      width: min(100%, 24rem) !important;
+      max-width: 100%;
+      margin: 0 auto 1.25rem !important;
+    }
+
     :is(#maincolumn, .maincolumn, #content) iframe {
       width: 100%;
       margin-block: 0.75rem;

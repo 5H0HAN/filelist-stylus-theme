@@ -46,3 +46,6 @@ state. It uses no external scripts, analytics, or persistent storage.
 - Keep new controls in the Filelist page and disclose external destinations.
 - Send only the text the user reviews and explicitly submits.
 - Keep the theme scoped to Filelist and free of remote resources.
+- Use only poster artwork already rendered by Filelist; browse cards use its
+  native category art and do not trigger additional detail-page or metadata
+  requests.

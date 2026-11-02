@@ -4,6 +4,12 @@ A charcoal and amber theme for Filelist, paired with an optional in-page tool
 panel for local browse filtering, public title search, metadata lookup, and
 user-selected text translation.
 
+Browse results use a responsive library-style card grid with Filelist's native
+category artwork, release names, and tracker stats. Torrent detail pages give
+the poster already supplied by Filelist more room. Browse rows do not provide
+poster art, so the theme does not make extra detail-page requests or fetch art
+from TMDB or another service.
+
 ## Install the theme
 
 1. Open Stylus and choose **Write new style**.

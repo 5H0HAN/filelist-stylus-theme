@@ -55,12 +55,14 @@ components:
 **Creative North Star: "Night Archive"**
 
 Filelist is a dense, task-focused site. Night Archive gives it a quiet reading
-surface: charcoal panels, warm paper text, and amber wayfinding. The site's
-content, links, and existing actions remain recognizable.
+surface: charcoal panels, warm paper text, and amber wayfinding. Browse results
+use a library-style card grid; torrent detail pages emphasize the poster
+already supplied by Filelist. The site's content, links, and existing actions
+remain recognizable.
 
 **Key Characteristics:**
 - Amber highlights only the browse action, links, and keyboard focus.
-- Dense result data uses clear row separators and tabular numerals.
+- Browse cards give release names priority, with category art and compact stats.
 - Serif headings add a restrained editorial note; the interface stays compact.
 - No external assets or motion are needed to carry the visual identity.
 
@@ -81,17 +83,18 @@ tabular numerals for easier comparison.
 
 ## Layout
 
-Keep Filelist's page structure and navigation. The browse form wraps naturally,
-with a flexible text or search field and filters that remain usable on narrow
-screens. On touch-sized screens, controls reach 44px high and compact filters
-share a row when space allows. Keep result tables inside the main content column
-and allow horizontal scrolling on small screens.
+Keep Filelist's page structure and navigation. The browse search spans the
+content width; native category and sort controls wrap naturally. Results use an
+auto-fitting card grid and become a single column on small screens. Torrent
+details keep Filelist's own poster beside the description on desktop and center
+it above the content on mobile. Do not fetch poster art or metadata for browse
+cards.
 
 ## Elevation & Depth
 
-Surfaces stay flat. A thin border separates panels, controls, and table rows;
-amber focus outlines show keyboard position. Do not stack decorative shadows
-onto bordered surfaces.
+Panels and controls use thin borders. Browse cards get a soft shadow and a small
+lift on hover; amber focus outlines show keyboard position. Keep the depth
+subtle so the release art and names remain the focus.
 
 ## Shapes
 
@@ -117,12 +120,18 @@ Keep the site's existing input, category, match-field, sort, and direction
 controls. The query field expands first; controls wrap without changing form
 submission or search behavior.
 
-### Results table
+### Browse library cards
 
-Muted row rules, restrained alternating rows, and a subtle hover or
-keyboard-focus surface make long lists easier to follow without turning every
-row into a card. On narrow screens, keep columns readable and let the result
-table scroll horizontally.
+Prioritize the release name and native category image. Place the existing
+tracker stats in compact, labeled tiles. Cards keep keyboard focus visible and
+collapse to one column on narrow screens.
+
+### Torrent poster
+
+Use the poster already present on Filelist's detail page as the main visual.
+Give it a portrait crop and enough width to read clearly beside the native
+metadata, then stack it above the content on mobile. Never substitute a remote
+poster lookup.
 
 ## Do's and Don'ts
 
